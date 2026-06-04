@@ -34,38 +34,6 @@ Navega por las páginas del menú lateral para explorar cada análisis.
  
 st.divider()
 
-
-# Cargar datos
-ruta = 'data/datos_finales.parquet'
-df = pd.read_parquet(ruta)
-if df.empty:
-    st.error(f"No se encontraron datos en: {ruta}")
-    st.stop()
-
-# Tipos válidos
-tipos_validos = [
-    'Importación Aérea (AIO)',
-    'Full Container Load Impo (FCLI)',
-    'Less Container Load Impo (LCLI)',
-    'Importación Aérea Miami (AIM)'
-]
-
-# ── PASO 1: filtrar y crear columnas ANTES de usarlas ──
-df_filtrado = df[df['Servicio'].isin(tipos_validos)].copy()
-df_filtrado['Fecha Inicio'] = pd.to_datetime(df_filtrado['Fecha Inicio'], errors='coerce')
-df_filtrado['Año'] = df_filtrado['Fecha Inicio'].dt.year
-df_filtrado['Mes'] = df_filtrado['Fecha Inicio'].dt.month
-
-# ── PASO 2: selectores ──
-meses = {
-    1:'Enero', 2:'Febrero', 3:'Marzo', 4:'Abril',
-    5:'Mayo', 6:'Junio', 7:'Julio', 8:'Agosto',
-    9:'Septiembre', 10:'Octubre', 11:'Noviembre', 12:'Diciembre'
-}
-
-
-
-
 # ─── CARGA DE DATOS ───────────────────────────────────────────
 
 from utils.filtros import cargar_datos, SERVICIOS, ESTADOS 
@@ -75,6 +43,20 @@ try:
 except FileNotFoundError:
     st.error("No se encontró el archivo en: data/datos_finales.parquet")
     st.stop()
+except Exception as e:
+    st.error(f"Error leyendo data/datos_finales.parquet: {e}")
+    st.stop()
+
+if df.empty:
+    st.error("No se encontraron datos en: data/datos_finales.parquet")
+    st.stop()
+
+df_filtrado = df.copy()
+meses = {
+    1: 'Enero', 2: 'Febrero', 3: 'Marzo', 4: 'Abril',
+    5: 'Mayo', 6: 'Junio', 7: 'Julio', 8: 'Agosto',
+    9: 'Septiembre', 10: 'Octubre', 11: 'Noviembre', 12: 'Diciembre'
+}
  
 # ─── IMAGEN DE PORTADA ────────────────────────────────────────
 if os.path.exists("assets/portada.jpg"):
