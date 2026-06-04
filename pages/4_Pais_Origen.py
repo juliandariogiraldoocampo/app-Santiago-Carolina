@@ -128,7 +128,7 @@ fig_top.update_layout(
     margin=dict(l=10, r=120, t=10, b=10),
     xaxis=dict(gridcolor='#1e293b'),
 )
-st.plotly_chart(fig_top, use_container_width=True)
+st.plotly_chart(fig_top, width="stretch")
  
 st.markdown("<br>", unsafe_allow_html=True)
  
@@ -166,7 +166,7 @@ fig_line.update_layout(
     yaxis=dict(gridcolor='#1e293b'),
     margin=dict(l=10, r=10, t=10, b=10),
 )
-st.plotly_chart(fig_line, use_container_width=True)
+st.plotly_chart(fig_line, width="stretch")
  
 # Insight automático
 if len(df_trend) > 0:
@@ -222,7 +222,7 @@ fig_heat.update_layout(
     coloraxis_showscale=False,
 )
 fig_heat.update_traces(textfont_size=11)
-st.plotly_chart(fig_heat, use_container_width=True)
+st.plotly_chart(fig_heat, width="stretch")
  
 st.markdown("<br>", unsafe_allow_html=True)
  
@@ -249,7 +249,7 @@ with col_left:
  
     st.dataframe(
         top_com[['Pais', 'Comercial Principal', 'Ops', 'Total', '% del país']],
-        use_container_width=True,
+        width="stretch",
         hide_index=True,
         height=400,
     )
@@ -275,7 +275,7 @@ with col_right:
         margin=dict(l=10, r=10, t=10, b=10),
     )
     fig_com.update_traces(textposition='inside', textinfo='percent')
-    st.plotly_chart(fig_com, use_container_width=True)
+    st.plotly_chart(fig_com, width="stretch")
     st.caption("Top 8 comerciales por total de operaciones internacionales (excl. 'Otros')")
  
 st.divider()
@@ -288,8 +288,9 @@ with st.expander("Ver detalle por ciudad de origen"):
         .reset_index().rename(columns={'FileID': 'Operaciones', 'Origen_x': 'Ciudad'})
         .sort_values('Operaciones', ascending=False)
     )
-    st.dataframe(ciudad_detail, use_container_width=True, height=350, hide_index=True)
+    st.dataframe(ciudad_detail, width="stretch", height=350, hide_index=True)
  
 st.markdown("---")
 st.markdown("Análisis por País de Origen · Importaciones MDE · 2022–2026")
  
+

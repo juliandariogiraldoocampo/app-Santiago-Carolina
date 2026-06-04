@@ -6,7 +6,7 @@ import matplotlib.ticker as mticker
 import os
 
 # 1. Imagen de portada
-st.image("assets/portada.png", use_container_width=True)
+st.image("assets/portada.png", width="stretch")
 
 # 2. Título y descripción del proyecto
 # st.title("Radar Comercial")
@@ -38,7 +38,9 @@ st.divider()
 # Cargar datos
 ruta = 'data/datos_finales.parquet'
 df = pd.read_parquet(ruta)
-
+if df.empty:
+    st.error(f"No se encontraron datos en: {ruta}")
+    st.stop()
 
 # Tipos válidos
 tipos_validos = [
@@ -76,7 +78,7 @@ except FileNotFoundError:
  
 # ─── IMAGEN DE PORTADA ────────────────────────────────────────
 if os.path.exists("assets/portada.jpg"):
-    st.image("assets/portada.jpg", use_column_width=True)
+    st.image("assets/portada.jpg", width="stretch")
  
 
  
@@ -351,6 +353,7 @@ ax.spines['top'].set_visible(False)
 ax.spines['right'].set_visible(False)
 plt.tight_layout()
 st.pyplot(fig)
+
 
 
 

@@ -162,7 +162,7 @@ with tab1:
  
     st.dataframe(
         pivot[["Nivel", "Comercial"] + [c for c in pivot.columns if c not in ["Comercial", "Nivel"]]],
-        use_container_width=True,
+        width="stretch",
         height=420,
     )
     st.caption("BAJO = 5 o menos ventas | MEDIO = 6-15 | ALTO = más de 15")
@@ -183,7 +183,7 @@ with tab1:
             height=520, margin=dict(l=10, r=10, t=10, b=10),
         )
         fig_bar.update_traces(textposition="outside")
-        st.plotly_chart(fig_bar, use_container_width=True)
+        st.plotly_chart(fig_bar, width="stretch")
  
     with col_b:
         st.markdown('<div class="section-title">Evolución anual (top 10 comerciales)</div>', unsafe_allow_html=True)
@@ -198,13 +198,13 @@ with tab1:
             legend=dict(font=dict(size=9)),
             margin=dict(l=10, r=10, t=10, b=10),
         )
-        st.plotly_chart(fig_line, use_container_width=True)
+        st.plotly_chart(fig_line, width="stretch")
  
     st.markdown('<div class="section-title">Comerciales de bajo rendimiento (5 o menos ventas totales)</div>', unsafe_allow_html=True)
     bajos = pivot[pivot["Total"] <= 5].sort_values("Total")
     if len(bajos):
         cols_mostrar = ["Comercial", "Total"] + [c for c in bajos.columns if c.isdigit()]
-        st.dataframe(bajos[cols_mostrar], use_container_width=True)
+        st.dataframe(bajos[cols_mostrar], width="stretch")
         st.info(str(len(bajos)) + " comerciales con 5 o menos operaciones en todo el período.")
     else:
         st.success("No hay comerciales con 5 o menos ventas en el período seleccionado.")
@@ -252,7 +252,7 @@ with tab3:
             font_color="#e2e8f0", showlegend=False,
             height=380, margin=dict(l=10, r=10, t=10, b=10),
         )
-        st.plotly_chart(fig_freq, use_container_width=True)
+        st.plotly_chart(fig_freq, width="stretch")
  
     with col_f2:
         st.markdown('<div class="section-title">Compras por mes del año (estacionalidad)</div>', unsafe_allow_html=True)
@@ -272,7 +272,7 @@ with tab3:
             font_color="#e2e8f0", coloraxis_showscale=False,
             height=380, margin=dict(l=10, r=10, t=10, b=10),
         )
-        st.plotly_chart(fig_est, use_container_width=True)
+        st.plotly_chart(fig_est, width="stretch")
  
     st.markdown('<div class="section-title">Operaciones por año y tipo de servicio</div>', unsafe_allow_html=True)
     by_servicio = ops.groupby(["Año", "Servicio"])["FileID"].count().reset_index()
@@ -286,7 +286,7 @@ with tab3:
         font_color="#e2e8f0", height=350,
         margin=dict(l=10, r=10, t=10, b=10),
     )
-    st.plotly_chart(fig_sv, use_container_width=True)
+    st.plotly_chart(fig_sv, width="stretch")
  
  
 # ─── TAB 4: EXPLORAR DATOS ───
@@ -314,7 +314,7 @@ with tab4:
     st.dataframe(
         vista[["FileID", "Cliente", "Servicio", "Fecha Inicio", "StatusNegocio", "Comercial Reponsable", "Año"]]
         .sort_values("Fecha Inicio", ascending=False),
-        use_container_width=True, height=450,
+        width="stretch", height=450,
     )
     st.caption("Mostrando " + str(len(vista)) + " operaciones")
  
@@ -322,3 +322,4 @@ with tab4:
 # FOOTER
 st.markdown("---")
 st.markdown("Dashboard Riesgo MDE · Filtros: Importaciones AIO/FCLI/LCLI/AIM · Ciudad MDE · Estados efectivos")
+

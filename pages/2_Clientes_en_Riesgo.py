@@ -113,7 +113,7 @@ st.dataframe(
             "dias_inactivo": "Dias sin comprar",
         }
     ),
-    use_container_width=True,
+    width="stretch",
     height=380,
 )
 
@@ -144,7 +144,7 @@ with col_r1:
         line_color="#ef4444",
         annotation_text=f"Umbral {umbral_inactividad}d",
     )
-    st.plotly_chart(fig_scatter, use_container_width=True)
+    st.plotly_chart(fig_scatter, width="stretch")
 
 with col_r2:
     st.markdown("#### Distribucion por nivel de riesgo")
@@ -163,10 +163,11 @@ with col_r2:
         },
         hole=0.45,
     )
-    st.plotly_chart(fig_pie, use_container_width=True)
+    st.plotly_chart(fig_pie, width="stretch")
 
 st.markdown("### Top 10 clientes activos con mayor riesgo de fuga")
 top10_riesgo = solo_activos.nlargest(10, "dias_inactivo")[
     ["Riesgo", "Cliente", "total_compras", "dias_inactivo", "Ultimo Comercial"]
 ].rename(columns={"total_compras": "Num Compras", "dias_inactivo": "Dias sin comprar"})
-st.dataframe(top10_riesgo, use_container_width=True)
+st.dataframe(top10_riesgo, width="stretch")
+
